@@ -16,6 +16,7 @@ require {
     class dir { search open read };
     class service start;
     class process transition;
+    class unix_stream_socket connectto;
 }
 
 # Define types
@@ -44,3 +45,6 @@ allow amazon_ssm_agent_t amazon_ssm_agent_unit_file_t:file { read open getattr }
 
 # Allow amazon-ssm-agent to start as a service
 allow init_t amazon_ssm_agent_t:service start;
+
+# Allow amazon-ssm-agent to connect to systemd socket
+allow amazon_ssm_agent_t systemd_socket_proxyd_t:unix_stream_socket connectto;
