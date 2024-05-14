@@ -46,5 +46,6 @@ allow amazon_ssm_agent_t amazon_ssm_agent_unit_file_t:file { read open getattr }
 # Allow amazon-ssm-agent to start as a service
 allow init_t amazon_ssm_agent_t:service start;
 
-# Allow amazon-ssm-agent to connect to systemd socket
-allow amazon_ssm_agent_t systemd_socket_proxyd_t:unix_stream_socket connectto;
+# Allow amazon-ssm-agent to connect to systemd socket (correct type reference)
+# Commenting out this line since systemd_socket_proxyd_t may not be defined in your system
+# allow amazon_ssm_agent_t systemd_socket_proxyd_t:unix_stream_socket connectto;
