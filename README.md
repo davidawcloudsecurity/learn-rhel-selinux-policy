@@ -1,6 +1,19 @@
 # learn-rhel-selinux-policy
 How to create policy for amazon-ssm-agent
 
+## Filter for unconfined services
+```ruby
+ps -eZ | grep unconfined_service_t
+```
+For each unconfined process identified, determine its executable and investigate its SELinux policy requirements.
+```ruby
+ps -p 785 -o comm,args
+```
+Check Current SELinux Context of the Executable
+Use the ls -Z command to check the SELinux context of the executable.
+```ruby
+ls -Z /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
+```
 ## What is selinux
 https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts
 
