@@ -22,3 +22,6 @@ yum install policycoreutils policycoreutils-python selinux-policy selinux-policy
 ```
 
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/writing-a-custom-selinux-policy_using-selinux
+
+## Troubleshooting
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-security-enhanced_linux-troubleshooting-top_three_causes_of_problems
