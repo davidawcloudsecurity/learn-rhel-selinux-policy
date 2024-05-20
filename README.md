@@ -7,6 +7,8 @@ https://www.whitewinterwolf.com/posts/2017/09/08/selinux-cheatsheet/
 
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-security-enhanced_linux-working_with_selinux-selinux_contexts_labeling_files
 
+https://subscription.packtpub.com/book/cloud-and-networking/9781783989669/1/ch01lvl1sec10/building-a-simple-selinux-module
+
 https://access.redhat.com/articles/6999267
 
 ```ruby
