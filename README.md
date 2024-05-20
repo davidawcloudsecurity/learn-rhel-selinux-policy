@@ -1,6 +1,9 @@
 # learn-rhel-selinux-policy
 How to create policy for amazon-ssm-agent
 
+## What is selinux
+https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts
+
 https://github.com/aws/amazon-ssm-agent-selinux/blob/main/amazon_ssm_agent.sh
 
 https://www.whitewinterwolf.com/posts/2017/09/08/selinux-cheatsheet/
