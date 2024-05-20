@@ -9,4 +9,8 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/se
 
 https://access.redhat.com/articles/6999267
 
+```ruby
+yum install rpm-build
+```
+
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/writing-a-custom-selinux-policy_using-selinux
