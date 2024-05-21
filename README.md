@@ -12,6 +12,8 @@ ps -p 785 -o comm,args
 If cannot find the path
 ```ruby
 ls -l /proc/785/exe
+readlink -f /proc/785/exe
+lsof -p 785 | grep txt
 ```
 Check Current SELinux Context of the Executable
 Use the ls -Z command to check the SELinux context of the executable.
