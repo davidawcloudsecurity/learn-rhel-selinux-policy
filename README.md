@@ -5,7 +5,7 @@ How to create policy for amazon-ssm-agent
 ```ruby
 ps -eZ | grep unconfined_service_t
 ```
-For each unconfined process identified, determine its executable and investigate its SELinux policy requirements.
+For each unconfined process identified, determine its executable `path` and investigate its SELinux policy requirements.
 ```ruby
 ps -p 785 -o comm,args
 ```
