@@ -20,6 +20,11 @@ Use the ls -Z command to check the SELinux context of the executable.
 ```ruby
 ls -Z /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
 ```
+List all file context rules:
+```ruby
+semanage fcontext -l
+semanage fcontext -l | grep /path/to/file
+```
 ## What is selinux
 https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts
 
@@ -44,3 +49,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/us
 
 ## Troubleshooting
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-security-enhanced_linux-troubleshooting-top_three_causes_of_problems
+
+```ruby
+ausearch -m avc -ts recent
+```
