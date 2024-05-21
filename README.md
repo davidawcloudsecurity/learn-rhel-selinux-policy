@@ -24,6 +24,7 @@ List all file context rules:
 ```ruby
 semanage fcontext -l
 semanage fcontext -l | grep /path/to/file
+semanage fcontext -l | grep -i splunk
 ```
 ## What is selinux
 https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts
