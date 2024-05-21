@@ -7,7 +7,11 @@ ps -eZ | grep unconfined_service_t
 ```
 For each unconfined process identified, determine its executable and investigate its SELinux policy requirements.
 ```ruby
-ps -p 785 -o comm,args
+ps -p **785** -o comm,args
+```
+If cannot find the path
+```ruby
+ls -l /proc/**785**/exe
 ```
 Check Current SELinux Context of the Executable
 Use the ls -Z command to check the SELinux context of the executable.
