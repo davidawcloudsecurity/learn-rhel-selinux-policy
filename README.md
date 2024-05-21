@@ -26,6 +26,25 @@ semanage fcontext -l
 semanage fcontext -l | grep /path/to/file
 semanage fcontext -l | grep -i splunk
 ```
+1. Create policy
+```ruby
+sepolicy generate --init <path_to_my_app_binary>
+```
+Proceed to execute the sh file
+
+Check if the policy is created and registered in semanage
+```ruby
+semanage fcontext -l | grep -i amazon
+```
+Check if audit denies any services
+```ruby
+ausearch -m AVC,USER_AVC -ts recent
+```
+Apply semanage and restorcon to the label created from #1
+```
+semanage fcontext -a -t amazon_ssm_agent_exec_t '/usr/bin/amazon-ssm-agent'
+restorecon -v /usr/bin/amazon-ssm-agent
+```
 ## What is selinux
 https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts
 
@@ -40,7 +59,7 @@ https://subscription.packtpub.com/book/cloud-and-networking/9781783989669/1/ch01
 https://access.redhat.com/articles/6999267
 
 ```ruby
-yum install rpm-build
+yum install rpm-build policycoreutils-devel selinux-policy -y
 ```
 ```ruby
 yum install policycoreutils-devel policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
