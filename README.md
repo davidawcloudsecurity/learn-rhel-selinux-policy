@@ -83,3 +83,5 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/se
 ```ruby
 ausearch -m avc -ts recent
 ```
+
+https://chatgpt.com/share/f12a8beb-5d21-4178-be67-32b791fa9b4c
