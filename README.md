@@ -113,7 +113,7 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.KTvDE5
 ++ jobs -p
 + exit 0
 ```
-List all file context rules:
+## 1. List all file context rules:
 ```ruby
 semanage fcontext -l | grep /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
 semanage fcontext -l | grep -i amazon_cloudwatch_agent
