@@ -1,27 +1,110 @@
 # learn-rhel-selinux-policy
 How to create policy for amazon-ssm-agent
 
+## Requirements
+```ruby
+yum install rpm-build policycoreutils-devel selinux-policy -y
+```
+
 ## Filter for unconfined services
 ```ruby
 ps -eZ | grep unconfined_service_t
 ```
 For each unconfined process identified, determine its executable `path` and investigate its SELinux policy requirements.
 ```ruby
-ps -p 785 -o comm,args
+ps -eZ | grep unconfined_service_t
+system_u:system_r:unconfined_service_t:s0 775 ?  00:00:00 amazon-cloudwat
 ```
 If cannot find the path
 ```ruby
-ls -l /proc/785/exe
-readlink -f /proc/785/exe
-lsof -p 785 | grep txt
+ps -p 775 -o comm,args
+ls -l /proc/775/exe
+readlink -f /proc/775/exe
+lsof -p 775 | grep txt
+```
+``ruby
+amazon-cl 775 cwagent  txt       REG              202,4 113890632  8160 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
 ```
 Best to check everything associate with the service/application/process
-
-Check Current SELinux Context of the Executable
-
+```ruby
+find / -name amazon-cloudwatch-agent
+```
 Use the ls -Z command to check the SELinux context of the executable.
 ```ruby
 ls -Z /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
+system_u:object_r:bin_t:s0 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
+```
+Create policy
+```ruby
+sepolicy generate --init /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
+nm: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent: no symbols
+Created the following files:
+/root/amazon_cloudwatch_agent.te # Type Enforcement file
+/root/amazon_cloudwatch_agent.if # Interface file
+/root/amazon_cloudwatch_agent.fc # File Contexts file
+/root/amazon_cloudwatch_agent_selinux.spec # Spec file
+/root/amazon_cloudwatch_agent.sh # Setup Script
+```
+Proceed to execute the sh file
+```ruby
+./amazon_cloudwatch_agent.sh
+Building and Loading Policy
++ make -f /usr/share/selinux/devel/Makefile amazon_cloudwatch_agent.pp
+Compiling targeted amazon_cloudwatch_agent module
+Creating targeted amazon_cloudwatch_agent.pp policy package
+rm tmp/amazon_cloudwatch_agent.mod.fc tmp/amazon_cloudwatch_agent.mod
++ /usr/sbin/semodule -i amazon_cloudwatch_agent.pp
++ sepolicy manpage -p . -d amazon_cloudwatch_agent_t
+./amazon_cloudwatch_agent_selinux.8
++ /sbin/restorecon -F -R -v /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
+++ pwd
++ pwd=/root
++ rpmbuild --define '_sourcedir /root' --define '_specdir /root' --define '_builddir /root' --define '_srcrpmdir /root' --define '_rpmdir /root' --define '_buildrootdir /root/.build' -ba amazon_cloudwatch_agent_selinux.spec
+setting SOURCE_DATE_EPOCH=1716336000
+Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.jcIDjp
++ umask 022
++ cd /root
++ '[' /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64 '!=' / ']'
++ rm -rf /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64
+++ dirname /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64
++ mkdir -p /root/.build
++ mkdir /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64
++ install -d /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64/usr/share/selinux/packages
++ install -m 644 /root/amazon_cloudwatch_agent.pp /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64/usr/share/selinux/packages
++ install -d /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64/usr/share/selinux/devel/include/contrib
++ install -m 644 /root/amazon_cloudwatch_agent.if /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64/usr/share/selinux/devel/include/contrib/
++ install -d /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64/usr/share/man/man8/
++ install -m 644 /root/amazon_cloudwatch_agent_selinux.8 /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64/usr/share/man/man8/amazon_cloudwatch_agent_selinux.8
++ install -d /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64/etc/selinux/targeted/contexts/users/
++ /usr/lib/rpm/check-buildroot
++ /usr/lib/rpm/redhat/brp-ldconfig
++ /usr/lib/rpm/brp-compress
++ /usr/lib/rpm/brp-strip /usr/bin/strip
++ /usr/lib/rpm/brp-strip-comment-note /usr/bin/strip /usr/bin/objdump
++ /usr/lib/rpm/redhat/brp-strip-lto /usr/bin/strip
++ /usr/lib/rpm/brp-strip-static-archive /usr/bin/strip
++ /usr/lib/rpm/redhat/brp-python-bytecompile '' 1 0
++ /usr/lib/rpm/brp-python-hardlink
++ /usr/lib/rpm/redhat/brp-mangle-shebangs
+Processing files: amazon_cloudwatch_agent_selinux-1.0-1.el9.noarch
+Provides: amazon_cloudwatch_agent_selinux = 1.0-1.el9
+Requires(interp): /bin/sh /bin/sh
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Requires(post): /bin/sh policycoreutils-python-utils selinux-policy-base >= 38.1.35-2
+Requires(postun): /bin/sh policycoreutils-python-utils
+Checking for unpackaged file(s): /usr/lib/rpm/check-files /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64
+Wrote: /root/amazon_cloudwatch_agent_selinux-1.0-1.el9.src.rpm
+Wrote: /root/noarch/amazon_cloudwatch_agent_selinux-1.0-1.el9.noarch.rpm
+Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.KTvDE5
++ umask 022
++ cd /root
++ /usr/bin/rm -rf /root/.build/amazon_cloudwatch_agent_selinux-1.0-1.el9.x86_64
++ RPM_EC=0
+++ jobs -p
++ exit 0
+```
+```ruby
+ausearch -m avc -ts recent
 ```
 List all file context rules:
 ```ruby
@@ -29,11 +112,7 @@ semanage fcontext -l
 semanage fcontext -l | grep /path/to/file
 semanage fcontext -l | grep -i splunk
 ```
-1. Create policy
-```ruby
-sepolicy generate --init <path_to_my_app_binary>
-```
-Proceed to execute the sh file
+
 
 Check if the policy is created and registered in semanage
 ```ruby
@@ -72,9 +151,6 @@ https://subscription.packtpub.com/book/cloud-and-networking/9781783989669/1/ch01
 
 https://access.redhat.com/articles/6999267
 
-```ruby
-yum install rpm-build policycoreutils-devel selinux-policy -y
-```
 ```ruby
 yum install policycoreutils-devel policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
 ```
