@@ -186,6 +186,18 @@ semodule -i <service/process>_custom.pp
 ## Troubleshooting
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-security-enhanced_linux-troubleshooting-top_three_causes_of_problems
 
+## Allow service/application/process to access directories / files
+https://community.splunk.com/t5/Security/Is-there-a-recommended-way-of-giving-the-Splunk-TA-sufficient/m-p/76196
+```ruby
+To set acl to a directory recursively:
+
+setfacl -R -m u:splunk:r /var/log
+getfacl -R /var/log
+
+To set acl for individual files:
+
+setfacl -m u:splunk:r /var/log/messages
+```
 ```ruby
 ausearch -m avc -ts recent
 journalctl -xe
