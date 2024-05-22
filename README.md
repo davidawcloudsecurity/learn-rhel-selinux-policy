@@ -55,6 +55,10 @@ or
 semanage fcontext -a -t amazon_ssm_agent_exec_t '/usr/bin/amazon-ssm-agent(/.*)?'
 restorecon -v /usr/bin/amazon-ssm-agent
 ```
+Repeat the above process with the new pp if service/process/application gets denu in /var/log/audit/audit.log
+``ruby
+ausearch -m AVC,USER_AVC -ts recent | audit2allow -M my_custom_module
+```
 ## What is selinux
 https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts
 
