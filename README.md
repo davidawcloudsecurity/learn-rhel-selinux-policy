@@ -5,6 +5,16 @@ How to create policy for amazon-ssm-agent
 ```ruby
 yum install rpm-build policycoreutils-devel selinux-policy -y
 ```
+Ctrl R to reveal previous type commands
+```ruby
+(reverse-i-search)`lsof': lsof -p 1854 | grep txt
+```
+! to search and paste previous run commands
+```ruby
+history | grep
+528  semanage fcontext -l | grep cloudwatch
+!528
+```
 
 ## Filter for unconfined services
 ```ruby
