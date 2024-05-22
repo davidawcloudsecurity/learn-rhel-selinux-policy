@@ -5,7 +5,7 @@ How to create policy for amazon-ssm-agent
 ```ruby
 yum install rpm-build policycoreutils-devel selinux-policy -y
 ```
-Ctrl R to reveal previous type commands
+Ctrl r to reveal previous type commands
 ```ruby
 (reverse-i-search)`lsof': lsof -p 1854 | grep txt
 ```
