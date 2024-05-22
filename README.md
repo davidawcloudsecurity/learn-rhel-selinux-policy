@@ -15,7 +15,10 @@ ls -l /proc/785/exe
 readlink -f /proc/785/exe
 lsof -p 785 | grep txt
 ```
+Best to check everything associate with the service/application/process
+
 Check Current SELinux Context of the Executable
+
 Use the ls -Z command to check the SELinux context of the executable.
 ```ruby
 ls -Z /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
