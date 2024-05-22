@@ -108,15 +108,8 @@ ausearch -m avc -ts recent
 ```
 List all file context rules:
 ```ruby
-semanage fcontext -l
-semanage fcontext -l | grep /path/to/file
-semanage fcontext -l | grep -i splunk
-```
-
-
-Check if the policy is created and registered in semanage
-```ruby
-semanage fcontext -l | grep -i amazon
+semanage fcontext -l | grep /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
+semanage fcontext -l | grep -i amazon_cloudwatch_agent
 ```
 Check if audit denies any services
 ```ruby
