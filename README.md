@@ -40,9 +40,16 @@ Check if audit denies any services
 ```ruby
 ausearch -m AVC,USER_AVC -ts recent
 ```
+Definition of AVC & USER_AVC
+```ruby
+type=AVC msg=audit(1716348575.824:10653): avc:  denied  { map } for  pid=11245 comm="ausearch" path="/var/log/audit/audit.log.25" dev="xvdu" ino=138 scontext=system_u:system_r:amazon_ssm_agent_t:s0 tcontext=system_u:object_r:auditd_log_t:s0 tclass=file permissive=1
+type=USER_AVC msg=audit(1716348575.824:10654): user_avc:  denied  { execute } for  pid=11245 comm="example_app" path="/path/to/resource" scontext=unconfined_u:unconfined_r:unconfined_t:s0 tcontext=system_u:object_r:user_home_t:s0 tclass=file permissive=0
+```
 Apply semanage and restorcon to the label created from #1
 ```
 semanage fcontext -a -t amazon_ssm_agent_exec_t '/usr/bin/amazon-ssm-agent'
+or
+semanage fcontext -a -t amazon_ssm_agent_exec_t '/usr/bin/amazon-ssm-agent(/.*)?'
 restorecon -v /usr/bin/amazon-ssm-agent
 ```
 ## What is selinux
