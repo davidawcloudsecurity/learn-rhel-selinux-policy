@@ -22,7 +22,7 @@ ls -l /proc/775/exe
 readlink -f /proc/775/exe
 lsof -p 775 | grep txt
 ```
-``ruby
+```ruby
 amazon-cl 775 cwagent  txt       REG              202,4 113890632  8160 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
 ```
 Best to check everything associate with the service/application/process
