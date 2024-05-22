@@ -1,46 +1,25 @@
-module amazon_ssm_agent 1.0;
+policy_module(amazon_ssm_agent, 1.0.0)
 
-require {
-    type var_log_t;
-    type var_lib_t;
-    type usr_t;
-    type systemd_unit_file_t;
-    type bin_t;
-    type init_t;
-    type amazon_ssm_agent_t;
-    type amazon_ssm_agent_exec_t;
-    type amazon_ssm_agent_var_lib_t;
-    type amazon_ssm_agent_log_t;
-    type amazon_ssm_agent_unit_file_t;
-    class file { read execute getattr open write append };
-    class dir { search open read };
-    class service start;
-    class process transition;
-}
+########################################
+#
+# Declarations
+#
 
-# Define types
 type amazon_ssm_agent_t;
 type amazon_ssm_agent_exec_t;
-type amazon_ssm_agent_var_lib_t;
-type amazon_ssm_agent_log_t;
-type amazon_ssm_agent_unit_file_t;
-
-# Allow amazon-ssm-agent to run as a daemon
 init_daemon_domain(amazon_ssm_agent_t, amazon_ssm_agent_exec_t)
 
-# Allow amazon-ssm-agent to read and write its log files
-allow amazon_ssm_agent_t amazon_ssm_agent_log_t:file { read write append };
-allow amazon_ssm_agent_t amazon_ssm_agent_log_t:dir { search open read };
+permissive amazon_ssm_agent_t;
 
-# Allow amazon-ssm-agent to read and write its var lib files
-allow amazon_ssm_agent_t amazon_ssm_agent_var_lib_t:file { read write append };
-allow amazon_ssm_agent_t amazon_ssm_agent_var_lib_t:dir { search open read };
+########################################
+#
+# amazon_ssm_agent local policy
+#
+allow amazon_ssm_agent_t self:fifo_file rw_fifo_file_perms;
+allow amazon_ssm_agent_t self:unix_stream_socket create_stream_socket_perms;
 
-# Allow amazon-ssm-agent to execute its own binaries
-allow amazon_ssm_agent_t amazon_ssm_agent_exec_t:file { read execute open };
+domain_use_interactive_fds(amazon_ssm_agent_t)
 
-# Allow amazon-ssm-agent to read its unit file
-allow amazon_ssm_agent_t amazon_ssm_agent_unit_file_t:file { read open getattr };
+files_read_etc_files(amazon_ssm_agent_t)
 
-# Allow amazon-ssm-agent to start as a service
-allow init_t amazon_ssm_agent_t:service start;
+miscfiles_read_localization(amazon_ssm_agent_t)
