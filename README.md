@@ -119,12 +119,12 @@ semanage fcontext -l | grep /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwat
 semanage fcontext -l | grep -i amazon_cloudwatch_agent
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent regular file       system_u:object_r:amazon_cloudwatch_agent_exec_t:s0
 ```
-Relabel the directoryto the policy
+Relabel the directory to the policy
 ```ruby
 semanage fcontext -a -t amazon_cloudwatch_agent_exec_t '/opt/aws/amazon-cloudwatch-agent(/.*)?'
 restorecon -Rv /opt/aws/amazon-cloudwatch-agent
 ```
-directory & binary file to the policy
+Relabel binary file to the policy
 ```ruby
 semanage fcontext -a -t amazon_cloudwatch_agent_exec_t /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
 File context for /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent already defined, modifying instead
