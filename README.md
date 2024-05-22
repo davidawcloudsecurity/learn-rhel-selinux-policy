@@ -123,9 +123,7 @@ systemctl status | grep cloudwatch
                │ └─4055 grep --color=auto cloudwatch
 ```
 ```ruby
-systemctl stop amazon-cloudwatch-agent
-systemctl start amazon-cloudwatch-agent
-systemctl status amazon-cloudwatch-agent
+systemctl stop amazon-cloudwatch-agent; systemctl start amazon-cloudwatch-agent; systemctl status amazon-cloudwatch-agent
 ```
 Check if audit denies any services
 ```ruby
