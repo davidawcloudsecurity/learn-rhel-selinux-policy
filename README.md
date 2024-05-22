@@ -80,7 +80,11 @@ yum install policycoreutils-devel policycoreutils policycoreutils-python selinux
 ```
 
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/writing-a-custom-selinux-policy_using-selinux
-
+## Manual execution of creating, applying selinux policy
+```ruby
+ausearch -m avc -ts recent | grep <service/process> | audit2allow -M <service/process>_custom
+semodule -i <service/process>_custom.pp
+```
 ## Troubleshooting
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-security-enhanced_linux-troubleshooting-top_three_causes_of_problems
 
