@@ -199,6 +199,14 @@ To set acl for individual files:
 setfacl -m u:splunk:r /var/log/messages
 ```
 ```ruby
+# Add CW Agent to adm group and grant access to read logs
+usermod -a -G adm cwagent
+setfacl -d -m g:adm:r-x /var/log
+setfacl -R -d -m g:adm:r-- /var/log/*
+setfacl -m g:adm:r-x /var/log
+setfacl -R -m g:adm:r-- /var/log/*
+```
+```ruby
 ausearch -m avc -ts recent
 journalctl -xe
 cat /var/log/audit/audit.log | grep AVC
