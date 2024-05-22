@@ -115,6 +115,18 @@ semanage fcontext -a -t amazon_cloudwatch_agent_exec_t /opt/aws/amazon-cloudwatc
 File context for /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent already defined, modifying instead
 restorecon -Rv /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
 ```
+Restart service/process/application
+```ruby
+systemctl status | grep cloudwatch
+           │ ├─amazon-cloudwatch-agent.service
+           │ │ └─4035 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent -config /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.toml -envconfig /opt/aws/amazon-cloudwatch-agent/etc/env-config.json -otelconfig /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.yaml -pidfile /opt/aws/amazon-cloudwatch-agent/var/amazon-cloudwatch-agent.pid
+               │ └─4055 grep --color=auto cloudwatch
+```
+```ruby
+systemctl stop amazon-cloudwatch-agent
+systemctl start amazon-cloudwatch-agent
+systemctl status | grep cloudwatch
+```
 Check if audit denies any services
 ```ruby
 ausearch -ts recent | grep amazon-cloudwatch-agent
