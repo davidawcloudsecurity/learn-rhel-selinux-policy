@@ -103,9 +103,6 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.KTvDE5
 ++ jobs -p
 + exit 0
 ```
-```ruby
-ausearch -m avc -ts recent
-```
 List all file context rules:
 ```ruby
 semanage fcontext -l | grep /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
@@ -113,7 +110,7 @@ semanage fcontext -l | grep -i amazon_cloudwatch_agent
 ```
 Check if audit denies any services
 ```ruby
-ausearch -m AVC,USER_AVC -ts recent
+ausearch -ts recent | grep amazon-cloudwatch-agent
 ```
 Definition of AVC & USER_AVC
 ```ruby
