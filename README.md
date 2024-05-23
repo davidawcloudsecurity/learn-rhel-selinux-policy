@@ -160,19 +160,6 @@ Repeat the above process with the new pp if service/process/application gets den
 ```ruby
 ausearch -m AVC,USER_AVC -ts recent | audit2allow -M my_custom_module
 ```
-## What is selinux
-https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts
-
-https://github.com/aws/amazon-ssm-agent-selinux/blob/main/amazon_ssm_agent.sh
-
-https://www.whitewinterwolf.com/posts/2017/09/08/selinux-cheatsheet/
-
-https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-security-enhanced_linux-working_with_selinux-selinux_contexts_labeling_files
-
-https://subscription.packtpub.com/book/cloud-and-networking/9781783989669/1/ch01lvl1sec10/building-a-simple-selinux-module
-
-https://access.redhat.com/articles/6999267
-
 ```ruby
 yum install policycoreutils-devel policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
 ```
@@ -211,5 +198,19 @@ ausearch -m avc -ts recent
 journalctl -xe
 cat /var/log/audit/audit.log | grep AVC
 ```
+## What is selinux
+https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts
+
+https://github.com/aws/amazon-ssm-agent-selinux/blob/main/amazon_ssm_agent.sh
+
+https://www.whitewinterwolf.com/posts/2017/09/08/selinux-cheatsheet/
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-security-enhanced_linux-working_with_selinux-selinux_contexts_labeling_files
+
+https://subscription.packtpub.com/book/cloud-and-networking/9781783989669/1/ch01lvl1sec10/building-a-simple-selinux-module
+
+https://access.redhat.com/articles/6999267
 
 https://chatgpt.com/share/f12a8beb-5d21-4178-be67-32b791fa9b4c
+
+https://www.techtarget.com/searchdatacenter/tutorial/How-to-write-an-SELinux-policy
