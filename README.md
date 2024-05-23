@@ -162,6 +162,15 @@ ausearch -m AVC,USER_AVC -ts recent | audit2allow -M my_custom_module
 ```
 ```ruby
 yum install policycoreutils-devel policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
+1. policycoreutils (provides utilities for managing SELinux)
+2. policycoreutils-python (provides utilities for managing SELinux)
+3. selinux-policy (provides SELinux reference policy)
+4. selinux-policy-targeted (provides SELinux targeted policy)
+5. libselinux-utils (provides some tools for managing SELinux)
+6. setroubleshoot-server (provides tools for deciphering audit log messages)
+7. setools (provides tools for audit log monitoring, querying policy, and file context management)
+8. setools-console (provides tools for audit log monitoring, querying policy, and file context management)
+9. mcstrans (tools to translate different levels to easy-to-understand format)
 ```
 
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/writing-a-custom-selinux-policy_using-selinux
