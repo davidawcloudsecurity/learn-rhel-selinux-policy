@@ -196,12 +196,15 @@ setfacl -m u:splunk:r /var/log/messages
 ```
 ```ruby
 # Add CW Agent to adm group and grant access to read logs
+sudo adduser foobar www-data
+usermod -G root cwagent
 usermod -a -G adm cwagent
 setfacl -d -m g:adm:r-x /var/log
 setfacl -R -d -m g:adm:r-- /var/log/*
 setfacl -m g:adm:r-x /var/log
 setfacl -R -m g:adm:r-- /var/log/*
 ```
+https://www.hostingadvice.com/how-to/linux-add-user-to-group/
 ```ruby
 ausearch -m avc -ts recent
 journalctl -xe
