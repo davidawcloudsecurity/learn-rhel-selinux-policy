@@ -210,6 +210,18 @@ ausearch -m avc -ts recent
 journalctl -xe
 cat /var/log/audit/audit.log | grep AVC
 ```
+
+## How to use journalctl
+Resource - https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
+```ruby
+journalctl -f
+journalctl -n 20
+journalctl --no-pager
+journalctl -a
+journalctl -p err -b
+journalctl _PID=8088
+journalctl -u nginx.service
+```
 ## What is selinux
 https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts
 
