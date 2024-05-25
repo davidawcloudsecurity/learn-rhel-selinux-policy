@@ -4,6 +4,7 @@ How to create policy for amazon-ssm-agent
 ## Requirements
 ```ruby
 yum install rpm-build policycoreutils-devel selinux-policy -y
+rm -rf /etc/yum.repos.d/*
 ```
 Ctrl r to reveal previous type commands
 ```ruby
