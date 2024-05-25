@@ -183,6 +183,12 @@ semodule -i <service/process>_custom.pp
 ## Troubleshooting
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-security-enhanced_linux-troubleshooting-top_three_causes_of_problems
 
+## Remove the Custom SELinux Policy Module:
+```ruby
+sudo semodule -r amazon-ssm-agent_custom
+sudo rm -rf /var/lib/selinux/targeted/tmp/modules/400/amazon-ssm-agent_custom
+semodule -l | grep amazon-ssm-agent_custom
+```
 ## Allow service/application/process to access directories / files
 https://community.splunk.com/t5/Security/Is-there-a-recommended-way-of-giving-the-Splunk-TA-sufficient/m-p/76196
 ```ruby
