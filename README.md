@@ -183,6 +183,34 @@ semodule -i <service/process>_custom.pp
 ## Troubleshooting
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-security-enhanced_linux-troubleshooting-top_three_causes_of_problems
 
+## Create a Custom SELinux Policy Module
+Create a new policy file named amazon-ssm-agent.te with the following content
+
+This policy allows processes in the amazon_ssm_agent_t domain to read and open files labeled with the var_log_t type.
+```ruby
+module amazon-ssm-agent 1.0;
+
+require {
+    type var_log_t;
+    type amazon_ssm_agent_t;
+    class file { read open };
+}
+
+Compile the policy module and load it into the SELinux policy store:
+```ruby
+checkmodule -M -m -o amazon-ssm-agent.mod amazon-ssm-agent.te
+semodule_package -o amazon-ssm-agent.pp -m amazon-ssm-agent.mod
+sudo semodule -i amazon-ssm-agent.pp
+```
+You can verify that the policy is loaded correctly by listing the SELinux policy modules
+```ruby
+semodule -l | grep amazon-ssm-agent
+```
+# Allow processes in the amazon_ssm_agent_t domain to read and open files labeled with var_log_t
+allow amazon_ssm_agent_t var_log_t:file { read open };
+
+```
+
 ## Remove the Custom SELinux Policy Module:
 ```ruby
 sudo semodule -r amazon-ssm-agent_custom
