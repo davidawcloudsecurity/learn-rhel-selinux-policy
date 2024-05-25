@@ -143,6 +143,7 @@ systemctl stop amazon-cloudwatch-agent; systemctl start amazon-cloudwatch-agent;
 ```
 Check if audit denies any services
 ```ruby
+ausearch -c amazon-cloud -ts recent | grep denied
 ausearch -ts recent | grep amazon-cloudwatch-agent | grep denied
 ```
 Definition of AVC & USER_AVC
