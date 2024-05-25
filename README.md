@@ -142,7 +142,7 @@ systemctl stop amazon-cloudwatch-agent; systemctl start amazon-cloudwatch-agent;
 ```
 Check if audit denies any services
 ```ruby
-ausearch -ts recent | grep amazon-cloudwatch-agent
+ausearch -ts recent | grep amazon-cloudwatch-agent | grep denied
 ```
 Definition of AVC & USER_AVC
 ```ruby
@@ -158,7 +158,8 @@ restorecon -v /usr/bin/amazon-ssm-agent
 ```
 Repeat the above process with the new pp if service/process/application gets denied in /var/log/audit/audit.log
 ```ruby
-ausearch -m AVC,USER_AVC -ts recent | audit2allow -M my_custom_module
+ausearch -ts recent | grep "amazon-ssm-agent" | grep denied | audit2allow -M amazon-ssm-agent-custom
+
 ```
 ```ruby
 yum install policycoreutils-devel policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
