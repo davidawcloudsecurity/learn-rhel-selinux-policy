@@ -195,7 +195,7 @@ require {
     type amazon_ssm_agent_t;
     class file { read open };
 }
-
+```
 Compile the policy module and load it into the SELinux policy store:
 ```ruby
 checkmodule -M -m -o amazon-ssm-agent.mod amazon-ssm-agent.te
@@ -205,10 +205,6 @@ sudo semodule -i amazon-ssm-agent.pp
 You can verify that the policy is loaded correctly by listing the SELinux policy modules
 ```ruby
 semodule -l | grep amazon-ssm-agent
-```
-# Allow processes in the amazon_ssm_agent_t domain to read and open files labeled with var_log_t
-allow amazon_ssm_agent_t var_log_t:file { read open };
-
 ```
 
 ## Remove the Custom SELinux Policy Module:
