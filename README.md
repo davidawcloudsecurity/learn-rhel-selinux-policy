@@ -165,7 +165,7 @@ restorecon -v /usr/bin/amazon-ssm-agent
 Repeat the above process with the new pp if service/process/application gets denied in /var/log/audit/audit.log
 ```ruby
 ausearch -ts recent | grep "amazon-ssm-agent" | grep denied | audit2allow -M amazon-ssm-agent-custom
-
+grep amazon-ssm-agent /var/log/audit/audit* | audit2allow -M amazon-ssmagent-custom
 ```
 ```ruby
 yum install policycoreutils-devel policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
