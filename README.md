@@ -162,7 +162,7 @@ or
 semanage fcontext -a -t amazon_ssm_agent_exec_t '/usr/bin/amazon-ssm-agent(/.*)?'
 restorecon -v /usr/bin/amazon-ssm-agent
 ```
-Repeat the above process with the new pp if service/process/application gets denied in /var/log/audit/audit.log
+Reboot and repeat the above process with the new pp if service/process/application gets denied in /var/log/audit/audit.log
 ```ruby
 ausearch -ts recent | grep "amazon-ssm-agent" | grep denied | audit2allow -M amazon-ssm-agent-custom
 grep amazon-ssm-agent /var/log/audit/audit* | audit2allow -M amazon-ssmagent-custom
