@@ -260,7 +260,7 @@ journalctl -p err -b
 journalctl _PID=8088
 journalctl -u nginx.service
 ```
-## How to update openssh using centors for rhel
+## How to update openssh using centos for rhel
 ```ruby
 yum install gcc
 yum install zlib-devel
