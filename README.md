@@ -260,6 +260,21 @@ journalctl -p err -b
 journalctl _PID=8088
 journalctl -u nginx.service
 ```
+## How to update openssh using centors for rhel
+```ruby
+yum install gcc
+yum install zlib-devel
+yum install openssl-devel
+ssh -V
+curl -O https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.6p1.tar.gz
+tar -zxvf openssh-9.6p1.tar.gz
+cd openssh-9.6p1
+./configure
+make
+sudo make install
+reboot
+ssh -V
+```
 ## What is selinux
 https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts
 
