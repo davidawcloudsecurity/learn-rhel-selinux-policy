@@ -213,7 +213,6 @@ You can verify that the policy is loaded correctly by listing the SELinux policy
 ```ruby
 semodule -l | grep amazon-ssm-agent
 ```
-
 ## Remove the Custom SELinux Policy Module:
 ```ruby
 sudo semodule -r amazon-ssm-agent_custom
@@ -261,6 +260,7 @@ journalctl _PID=8088
 journalctl -u nginx.service
 ```
 ## How to update openssh using centos for rhel
+Resource - https://medium.com/@eren.c.uysal/openssh-upgrade-process-to-9-6p1-4d71ca4cd424
 ```ruby
 yum install gcc
 yum install zlib-devel
